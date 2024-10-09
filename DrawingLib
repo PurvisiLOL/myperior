@@ -1,10 +1,10 @@
 local coreGui = game:GetService("CoreGui")
-
+local HttpService = game:GetService("HttpService")
+local NotificationHolderScript = game:HttpGet("https://pastebin.com/raw/t3Kr3Gve")
+local NotificationScript = game:HttpGet("https://pastebin.com/raw/YJ8wM6PM")
 local camera = workspace.CurrentCamera
 local drawingUI = Instance.new("ScreenGui")
 drawingUI.Name = "Drawing | Myperior"
-local NotificationHolder = loadstring(game:HttpGet("https://pastebin.com/raw/t3Kr3Gve"))()
-local Notification = loadstring(game:HttpGet("https://pastebin.com/raw/YJ8wM6PM"))()
 drawingUI.IgnoreGuiInset = true
 drawingUI.DisplayOrder = 0x7fffffff
 drawingUI.Parent = coreGui
