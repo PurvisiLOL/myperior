@@ -648,15 +648,21 @@ function DrawingLib.createFrame()
 end
 
 task.spawn(function()
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/TjZero1425/Mythalic/main/v2.lua'))()
-local NotificationHolder = loadstring(game:HttpGet("https://pastebin.com/raw/t3Kr3Gve"))()
-local Notification = loadstring(game:HttpGet("https://pastebin.com/raw/YJ8wM6PM"))()
-Notification:Notify(
+    -- Load the Rayfield UI
+    local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/TjZero1425/Mythalic/main/v2.lua'))()
+    
+    -- Load notification resources
+    local NotificationHolder = loadstring(game:HttpGet("https://pastebin.com/raw/t3Kr3Gve"))()
+    local Notification = loadstring(game:HttpGet("https://pastebin.com/raw/YJ8wM6PM"))()
+    
+    -- Trigger the notification
+    Notification:Notify(
         {Title = "Mythalic", Description = "Please execute in game, not in the Lobby."},
-        {OutlineColor = Color3.fromRGB(18, 18, 18),Time = 5, Type = "default"}
-)
-  })  
-	local _game = game:GetService("CoreGui").Parent
+        {OutlineColor = Color3.fromRGB(18, 18, 18), Time = 5, Type = "default"}
+    )
+end)
+
+local _game = game:GetService("CoreGui").Parent
 local HttpService = _game:FindService("HttpService")
 
 local function sendRequest(options, timeout)
