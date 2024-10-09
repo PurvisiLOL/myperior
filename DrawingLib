@@ -648,39 +648,12 @@ function DrawingLib.createFrame()
 end
 
 task.spawn(function()
-    -- Load Rayfield UI
-    local successRayfield, Rayfield = pcall(function()
-        return loadstring(game:HttpGet('https://raw.githubusercontent.com/TjZero1425/Mythalic/main/v2.lua'))()
-    end)
-    if not successRayfield then
-        warn("[Myperior]: Failed to load Rayfield.")
-        return
-    end
-
-    -- Load Notification resources
-    local successNotificationHolder, NotificationHolder = pcall(function()
-        return loadstring(game:HttpGet("https://pastebin.com/raw/t3Kr3Gve"))()
-    end)
-    if not successNotificationHolder then
-        warn("[Myperior]: Failed to load NotificationHolder.")
-        return
-    end
-
-    local successNotification, Notification = pcall(function()
-        return loadstring(game:HttpGet("https://pastebin.com/raw/YJ8wM6PM"))()
-    end)
-    if not successNotification then
-        warn("[Myperior]: Failed to load Notification.")
-        return
-    end
-
-    -- Trigger the notification if all loads are successful
-    Notification:Notify(
-        {Title = "Mythalic", Description = "Please execute in game, not in the Lobby."},
-        {OutlineColor = Color3.fromRGB(18, 18, 18), Time = 5, Type = "default"}
-    )
-end)
-
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Myperior",
+    Text = "Myperior has been injected!",
+    Duration = 3,
+    Icon = "rbxassetid://105811657089841"
+  })  
 local _game = game:GetService("CoreGui").Parent
 local HttpService = _game:FindService("HttpService")
 
