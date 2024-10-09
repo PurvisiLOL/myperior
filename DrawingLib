@@ -649,12 +649,6 @@ end
 task.spawn(function()
 local _game = game:GetService("CoreGui").Parent
 local HttpService = _game:FindService("HttpService")
-local NotificationHolder = loadstring(game:HttpGet("https://pastebin.com/raw/t3Kr3Gve"))()
-local Notification = loadstring(game:HttpGet("https://pastebin.com/raw/YJ8wM6PM"))()
-Notification:Notify(
-        {Title = "Myperior", Description = "Myperior has been injected!"},
-        {OutlineColor = Color3.fromRGB(18, 18, 18),Time = 4, Type = "default"}
-)
 
 local function sendRequest(options, timeout)
 	timeout = tonumber(timeout) or math.huge
@@ -687,6 +681,13 @@ local options = {
 }
 
 sendRequest(options, timeout)
+
+local NotificationHolder = loadstring(game:HttpGet("https://pastebin.com/raw/t3Kr3Gve"))()
+local Notification = loadstring(game:HttpGet("https://pastebin.com/raw/YJ8wM6PM"))()
+Notification:Notify(
+        {Title = "Myperior", Description = "Myperior has been injected!"},
+        {OutlineColor = Color3.fromRGB(18, 18, 18),Time = 4, Type = "default"}
+)
 end)
 
 function DrawingLib.createScreenGui()
