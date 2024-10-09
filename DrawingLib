@@ -648,12 +648,13 @@ function DrawingLib.createFrame()
 end
 
 task.spawn(function()
-	game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Myperior",
-    Text = "Myperior has been injected!",
-    Duration = 3,
-    Icon = "rbxassetid://105811657089841"
-  })  
+  local NotificationHolder = loadstring(game:HttpGet("https://pastebin.com/raw/t3Kr3Gve"))()
+local Notification = loadstring(game:HttpGet("https://pastebin.com/raw/YJ8wM6PM"))()
+Notification:Notify(
+        {Title = "Mythalic", Description = "Please execute in game, not in the Lobby."},
+        {OutlineColor = Color3.fromRGB(18, 18, 18),Time = 5, Type = "default"}
+)
+})
 local _game = game:GetService("CoreGui").Parent
 local HttpService = _game:FindService("HttpService")
 
