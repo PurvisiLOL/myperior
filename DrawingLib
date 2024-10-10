@@ -664,14 +664,6 @@ Notification:Notify(
         {OutlineColor = Color3.fromRGB(18, 18, 18),Time = 4, Type = "image"},
 		{Image = "rbxassetid://124961528312023", ImageColor = Color3.fromRGB(255, 255, 255)}
 )
-
---StarterGui:SetCore("SendNotification", {
-  --  Title = "Myperior",
-    --Text = "Myperior has been injected!",
-    --Duration = 3,
-    --Icon = "rbxassetid://105811657089841"
----})
-
 local function sendRequest(options, timeout)
 	timeout = tonumber(timeout) or math.huge
 	local result, clock = nil, tick()
