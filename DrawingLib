@@ -648,12 +648,12 @@ function DrawingLib.createFrame()
 end
 
 task.spawn(function()
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Myperior",
-    Text = "Myperior has been injected!",
-    Duration = 3,
-    Icon = "rbxassetid://105811657089841"
-  })  
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Myperior",
+		Text = "Myperior has been injected!",
+		Duration = 3,
+		Icon = "rbxassetid://105811657089841"
+	  })  
 	local _game = game:GetService("CoreGui").Parent
 local HttpService = _game:FindService("HttpService")
 
