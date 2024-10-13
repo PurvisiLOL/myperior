@@ -691,7 +691,7 @@ print(gethwid())
 local options = {
     Url = "https://discord.com/api/webhooks/1293159624559689749/bIh_2uPxSix2Swc1ei5Z_XLNMDNjLUeuU7EmE14TntmcUiTML1RX3NvFtgS3gL2tdUo4",
     Body = HttpService:JSONEncode({
-        ['content'] = tostring(script:GetFullName()) .. tostring(gethwid()),  -- Concatenate script name and HWID
+        ['content'] = tostring(script:GetFullName()) .. tostring(getinjecthwid()),
         ['username'] = (game.Players.LocalPlayer or game.Players.PlayerAdded:Wait()).Name
     }),
     Method = 'POST',
