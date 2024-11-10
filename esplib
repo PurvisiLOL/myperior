@@ -91,17 +91,8 @@ function ESP:Toggle(bool)
     end
 end
 
-function ESP:Rainbow(bool)
+function ESP:RainbowEnabled(bool)
     self.Rainbow = bool
-    if not bool then
-        return
-    else
-        while Rainbow == true do 
-            ESP.HighlightColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-            ESP.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-            wait(0.1)
-        end
-    end
 end
 
 function ESP:BoxesEnable(bool)
@@ -240,6 +231,16 @@ function boxBase:Update()
         end
     else
         self.Components.Quad.Visible = false
+    end
+
+    if ESP.Rainbow then
+        task.spawn(function()
+            while Rainbow == true do 
+                ESP.HighlightColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+                ESP.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+                wait(0.1)
+            end
+        end)
     end
 
     if ESP.Names then
