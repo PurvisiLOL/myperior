@@ -5,7 +5,7 @@ local ESP = {
     Rainbow = false,
     BoxShift = CFrame.new(0,-1.5,0),
 	BoxSize = Vector3.new(4,6,0),
-    Color = Color3.fromRGB(255, 170, 0),
+    Color = Color3.fromRGB(255, 255, 255),
     FaceCamera = false,
     Names = false,
     TeamColor = true,
@@ -233,16 +233,6 @@ function boxBase:Update()
         self.Components.Quad.Visible = false
     end
 
-    if ESP.Rainbow then
-        task.spawn(function()
-            while Rainbow == true do 
-                ESP.HighlightColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-                ESP.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-                wait(0.1)
-            end
-        end)
-    end
-
     if ESP.Names then
         local TagPos, Vis5 = WorldToViewportPoint(cam, locs.TagPos.p)
         
@@ -265,6 +255,14 @@ function boxBase:Update()
         self.Components.Distance.Visible = false
     end
     
+    if ESP.Rainbow then
+        while Rainbow == true do 
+            ESP.HighlightColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+            ESP.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+            wait(0.1)
+        end
+    end
+
     if ESP.Tracers then
         local TorsoPos, Vis6 = WorldToViewportPoint(cam, locs.Torso.p)
 
@@ -400,6 +398,14 @@ game:GetService("RunService").RenderStepped:Connect(function()
         if v.Update then
             local s,e = pcall(v.Update, v)
             if not s then warn("[EU]", e, v.Object:GetFullName()) end
+        end
+    end
+
+    if ESP.Rainbow then
+        while Rainbow == true do 
+            ESP.HighlightColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+            ESP.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+            wait(0.1)
         end
     end
 end)
