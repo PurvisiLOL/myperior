@@ -5,11 +5,9 @@ local ESP = {
     Rainbow = false,
     BoxShift = CFrame.new(0,-1.5,0),
 	BoxSize = Vector3.new(4,6,0),
-    Color = Color3.fromRGB(255, 255, 255),
+    Color = Color3.fromRGB(255, 170, 0),
     FaceCamera = false,
-    Tracers = false,
     Names = false,
-    Distance = false,
     TeamColor = true,
     Thickness = 2,
     AttachShift = 1,
@@ -98,13 +96,11 @@ function ESP:Rainbow(bool)
     if not bool then
         return
     else
-        task.spawn(function()
-            while Rainbow == true do 
-                ESP.HighlightColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-                ESP.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-                wait(0.1)
-            end
-        end)
+        while Rainbow == true do 
+            ESP.HighlightColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+            ESP.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+            wait(0.1)
+        end
     end
 end
 
@@ -116,12 +112,6 @@ function ESP:NamesEnable(bool)
     self.Names = bool
 end
 
-function ESP:Tracers(bool)
-    self.Tracers = bool
-end
-
-function ESP:DistanceEnable(bool)
-end
 
 function ESP:GetBox(obj)
     return self.Objects[obj]
