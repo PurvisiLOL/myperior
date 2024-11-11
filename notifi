@@ -8,7 +8,7 @@ function Nofitication:Notify(nofdebug, middledebug, all)
     local Outline_A = Instance.new("Frame")
     local WindowTitle = Instance.new("TextLabel")
     local WindowDescription = Instance.new("TextLabel")
-    
+    -- y
     ambientShadow.Name = "ambientShadow"
     ambientShadow.Parent = GUI
     ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
