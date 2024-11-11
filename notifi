@@ -126,12 +126,12 @@ function Nofitication:Notify(nofdebug, middledebug, all)
         Uncheck.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Uncheck.BackgroundTransparency = 1.000
         Uncheck.BorderSizePixel = 0
-        Uncheck.Position = UDim2.new(0, 14, 10, 76)
+        Uncheck.Position = UDim2.new(0, 4, 0, 4) -- Moved to the top corner
         Uncheck.Size = UDim2.new(0, 18, 0, 18)
         Uncheck.ZIndex = 5
         Uncheck.AutoButtonColor = false
         Uncheck.Image = "http://www.roblox.com/asset/?id=6031094678"
-        Uncheck.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        Uncheck.ImageColor3 = Color3.fromRGB(169, 169, 169) -- Changed to gray
         
         Check.Name = "Check"
         Check.Parent = Window
@@ -172,15 +172,11 @@ function Nofitication:Notify(nofdebug, middledebug, all)
             end
             Uncheck.MouseButton1Click:Connect(Unchecked)
             Check.MouseButton1Click:Connect(Checked)
-            
-            Outline_A:TweenSize(UDim2.new(0, 0, 0, 2), "Out", "Linear", middledebug.Time)
-    
-            wait(middledebug.Time)
-
-            if Stilthere == true then
         
+            Outline_A:TweenSize(UDim2.new(0, 0, 0, 2), "Out", "Linear", middledebug.Time)
+            wait(middledebug.Time)
+            if Stilthere then
                 ambientShadow:TweenSize(UDim2.new(0, 0, 0, 0), "Out", "Linear", 0.2)
-                
                 wait(0.2)
                 ambientShadow:Destroy()
             end
