@@ -126,12 +126,12 @@ function Nofitication:Notify(nofdebug, middledebug, all)
         Uncheck.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Uncheck.BackgroundTransparency = 1.000
         Uncheck.BorderSizePixel = 0
-        Uncheck.Position = UDim2.new(0, 7, 0, 76)
+        Uncheck.Position = UDim2.new(0, 14, 10, 76)
         Uncheck.Size = UDim2.new(0, 18, 0, 18)
         Uncheck.ZIndex = 5
         Uncheck.AutoButtonColor = false
         Uncheck.Image = "http://www.roblox.com/asset/?id=6031094678"
-        Uncheck.ImageColor3 = Color3.fromRGB(255, 84, 84)
+        Uncheck.ImageColor3 = Color3.fromRGB(255, 255, 255)
         
         Check.Name = "Check"
         Check.Parent = Window
