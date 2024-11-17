@@ -176,7 +176,7 @@ local function merge_t(a, b)
 	return r
 end
 
-local function Sandbox(f: (...any) -> (...any), upvalues: {any}?, constants: {string}?, protos: {(...any) -> (...any)}?, i: number?, params)
+function Sandbox(f: (...any) -> (...any), upvalues: {any}?, constants: {string}?, protos: {(...any) -> (...any)}?, i: number?, params)
 	upvalues = upvalues or {}
 	constants = constants or {}
 	protos = protos or {}
