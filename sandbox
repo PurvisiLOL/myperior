@@ -262,3 +262,5 @@ local function Sandbox(f: (...any) -> (...any), upvalues: {any}?, constants: {st
 	
 	return root
 end
+
+return Sandbox
