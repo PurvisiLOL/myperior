@@ -226,6 +226,7 @@ return function()
         local return_value = {pcall(setfenv(f, env), unpack(params))}
         setfenv(f, original_env)
 
+        local return_value = {pcall(setfenv(f, env), unpack(params))}
         root.return_value = table.move(return_value, 2, #return_value, 1, {})
         root.success = return_value[1]
 
