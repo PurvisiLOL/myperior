@@ -153,85 +153,95 @@ return function()
         return r
     end
 
-    local function Sandbox(f: (...any) -> (...any), upvalues: {any}?, constants: {string}?, protos: {(...any) -> (...any)}?, i: number?, params)
-        upvalues = upvalues or {}
-        constants = constants or {}
-        protos = protos or {}
-        params = params or {}
-        i = i or 1
+ function Sandbox(f: (...any) -> (...any), upvalues: {any}?, constants: {string}?, protos: {(...any) -> (...any)}?, i: number?, params)
+    upvalues = upvalues or {}
+    constants = constants or {}
+    protos = protos or {}
+    params = params or {}
+    i = i or 1
+    
+    -- Root environment setup
+    local root = {
+        root = true,
+        children = {},
+        stack = {},
+        params = {},
+        constants = constants,
+        upvalues = upvalues,
+        protos = protos,
+        pc = 0,
+        function_info = {debug.info(f, "na")},
+        f = f,
+        i = i
+    }
+    
+    local id_i = 0
+    
+    -- Function to wrap each metatable action
+    local function wrap(parent: {pc: number?, children: {any}, arguments: {any?}?})
+        local hooks = {}
+        local t = {}
 
-        local root = {
-            root = true,
-            children = {},
-            stack = {},
-            params = {},
-            constants = constants,
-            upvalues = upvalues,
-            protos = protos,
-            pc = 0,
-            function_info = {debug.info(f, "na")},
-            f = f,
-            i = i
-        }
-
-        local id_i = 0
-
-        local function wrap(parent: {pc: number?, children: {any}, arguments: {any?}?})
-            local hooks = {}
-            local t = {}
-
-            for metamethod in pairs(Metatable.metamethods) do
-                hooks[metamethod] = function(_, ...)
-                    root.pc += 1
-                    local pc = root.pc
-                    local self = {pc = pc, children = {}, parent = parent, arguments = {...}, metamethod = metamethod}
-                    parent.children[pc] = self
-
-                    if metamethod == "__len" then
-                        return -1
-                    end
-
-                    return wrap(self)
+        for metamethod, _ in pairs(Metatable.metamethods) do
+            hooks[metamethod] = function(_, ...)
+                -- Increase the program counter
+                root.pc = root.pc + 1
+                
+                local pc = root.pc
+                local stack = root.stack
+                local self = {pc = pc, children = {}, parent = parent, arguments = {...}, metamethod = metamethod}
+                parent.children[pc] = self
+                
+                -- Handle specific metamethods
+                if metamethod == "__len" then
+                    return -1
                 end
+                
+                return wrap(self)  -- Return the wrapped metatable
             end
-
-            if root.pc ~= 0 then
-                root.stack[t] = root.pc
-            else
-                root.stack[t] = id_i
-                root.params[t] = id_i
-                id_i += 1
-            end
-
-            return setmetatable(t, hooks)
         end
-
-        local env = wrap(root)
-        local param_num, vararg = get_param_num(f)
-
-        for i = 1, param_num do
-            local arg = wrap(root)
-            table.insert(params, arg)
-            root.params[arg] = root.i
-            root.i += 1
+        
+        -- Set stack references
+        if root.pc ~= 0 then
+            root.stack[t] = root.pc
+        else
+            root.stack[t] = id_i
+            root.params[t] = id_i
+            id_i = id_i + 1
         end
-
-        if vararg then
-            local vararg = wrap(root)
-            table.insert(params, vararg)
-            root.params[vararg] = "..."
-        end
-
-        local original_env = getfenv(f)
-        local return_value = {pcall(setfenv(f, env), unpack(params))}
-        setfenv(f, original_env)
-
-        local return_value = {pcall(setfenv(f, env), unpack(params))}
-        root.return_value = table.move(return_value, 2, #return_value, 1, {})
-        root.success = return_value[1]
-
-        return root
+        
+        return setmetatable(t, hooks)
     end
-
-    return Sandbox  -- Return the Sandbox function as the entry point
+    
+    -- Initialize the environment
+    local env = wrap(root)
+    
+    -- Get the number of parameters the function takes
+    local param_num = debug.info(f, "a")
+    
+    -- Assign arguments
+    for i = 1, param_num do
+        local arg = wrap(root)
+        table.insert(params, arg)
+        root.params[arg] = root.i
+        root.i = root.i + 1
+    end
+    
+    -- Handle varargs
+    if param_num > 0 then
+        local vararg = wrap(root)
+        table.insert(params, vararg)
+        root.params[vararg] = "..."
+    end
+    
+    -- Execute the function within the new environment
+    local original_env = getfenv(f)
+    local return_value = {pcall(setfenv(f, env), unpack(params))}
+    setfenv(f, original_env)  -- Restore the original environment
+    
+    -- Return the result
+    root.return_value = {table.unpack(return_value, 2, #return_value)}
+    root.success = return_value[1]
+    
+    return root
 end
